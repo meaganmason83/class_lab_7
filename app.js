@@ -1,12 +1,8 @@
 'use strict';
 
-// function round(num, prec) {
-//   return parseFloat(num.toFixed(prec));
-// }
-
 var allStores = [];
 
- function createStore(location, minCustomer, maxCustomer, averageCups, averagePounds) {
+ function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
    this.location = location;
    this.minCustomer = minCustomer;
    this.maxCustomer = maxCustomer;
@@ -33,19 +29,31 @@ var allStores = [];
    allStores.push(this);
  }
 
-  createStore.prototype.getRandomCustomer = function(min, max) {
+  Store.prototype.getRandomCustomer = function(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
-  };
+}
 
-  // createStore.prototype.generateCustomerData = function() {
-  //   for (var i = 0; i < this.hoursOpen.length; i++) {
-  //     this.customerPerHour.push(this.getRandomCustomer(this.minCustomer, this.maxCustomer));
-  //     this.customerPerDay += this.customerPerHour[i];
-  // };
+  Store.prototype.generateCustomerData = function() {
+    for (var i = 0; i < this.hoursOpen.length; i++) {
+      this.customerPerHour.push(this.getRandomCustomer(this.minCustomer, this.maxCustomer));
+      this.customerPerDay += this.customerPerHour[i];
+  }
+}
 
- new createStore('Pike Place Market', 14, 35, 1.2, 0.34);
+  Store.prototype.doAllMethods = function() {
+    this.getRandomCustomer();
+    this.generateCustomerData();
+}
 
+ new Store('Pike Place Market', 14, 35, 1.2, 0.34);
 
+ function makeAllStores() {
+   for (var i = 0; i < allStores.length; i++) {
+     allStores[i].doAllMethods();
+   }
+ }
+
+makeAllStores();
 
 //   location: 'Pike Place Market',
 //   minCustomer: 14,
@@ -567,7 +575,7 @@ var allStores = [];
 //   }
 // };
 //
-// //TODO:create function to call all methods!
+//create function to call all methods!
 // pikePlace.generateCustomerData();
 // pikePlace.generateTotalCustomers();
 // pikePlace.generateCupsData();
