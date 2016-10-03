@@ -48,6 +48,10 @@ var allStores = [];
 }
 
  new Store('Pike Place Market', 14, 35, 1.2, 0.34);
+ new Store('Capitol Hill', 12, 28, 3.2, 0.03);
+ new Store('Seattle Public Library', 9, 45, 2.6, 0.02);
+ new Store('South Lake Union', 5, 18, 1.3, 0.04);
+ new Store('Sea-Tac Airport', 28, 44, 1.1, 0.41);
 
  function makeAllStores() {
    for (var i = 0; i < allStores.length; i++) {
