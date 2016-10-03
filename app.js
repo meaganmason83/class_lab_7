@@ -9,40 +9,42 @@ var allStores = [];
    this.averageCups = averageCups;
    this.averagePounds = averagePounds;
    this.hoursOpen = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm', '8:00pm'];
-   this.customerPerHour = 0;
+   this.customerPerHour = [];
    this.customerPerDay = 0;
    this.totalCustomers = 0;
-   this.cupsPerHour = 0;
+   this.cupsPerHour = [];
    this.cupsPerDay = 0;
    this.cupsIntoPounds = 0;
    this.cupsPlusPounds = 0;
-   this.poundsPerHour = 0;
+   this.poundsPerHour = [];
    this.poundsPerDay = 0;
-   this.totalBeansPerHour = 0;
+   this.totalBeansPerHour = [];
    this.totalBeansPerDay = 0;
    this.dailyToGoPackages = 0;
-   this.employeesPerHour = 0;
+   this.employeesPerHour = [];
    this.employeesPerDay = 0;
    this.stringsForDOM = null;
    this.domLink = null;
    this.ulEl = null;
-   allStores.push(this);
- }
 
-  Store.prototype.getRandomCustomer = function(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
 
-  Store.prototype.generateCustomerData = function() {
-    for (var i = 0; i < this.hoursOpen.length; i++) {
-      this.customerPerHour.push(this.getRandomCustomer(this.minCustomer, this.maxCustomer));
-      this.customerPerDay += this.customerPerHour[i];
-  }
+   this.getRandomCustomer = function(min, max) {
+     return Math.floor(Math.random() * (max - min) + min);
+};
+
+    this.generateCustomerData = function() {
+      for (var i = 0; i < this.hoursOpen.length; i++) {
+        this.customerPerHour.push(this.getRandomCustomer(this.minCustomer, this.maxCustomer));
+        this.customerPerDay += this.customerPerHour[i];
+    }
+  };
+  allStores.push(this);
 }
 
   Store.prototype.doAllMethods = function() {
     this.getRandomCustomer();
     this.generateCustomerData();
+
 }
 
  new Store('Pike Place Market', 14, 35, 1.2, 0.34);
@@ -51,8 +53,8 @@ var allStores = [];
    for (var i = 0; i < allStores.length; i++) {
      allStores[i].doAllMethods();
    }
- }
 
+};
 makeAllStores();
 
 //   location: 'Pike Place Market',
