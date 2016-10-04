@@ -78,7 +78,7 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
     Kiosk.prototype.generateBeansData = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.totalBeansPerHour.push(this.cupsIntoPounds[i] + this.poundsPerHour[i]);
-          this.totalBeansPerDay += this.totalBeansPerHour[i];
+          this.totalBeansPerDay += parseFloat(this.totalBeansPerHour[i].toFixed(0));
     }
   };
 
@@ -107,8 +107,8 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
         }
         this.stringsForDOM.push('Total customers at ' + this.name + ': ' + this.totalCustomers);
         this.stringsForDOM.push('Total cups sold at ' + this.name + ': ' + parseFloat(this.cupsPerDay.toFixed(2)));
-        this.stringsForDOM.push('Total to-go pound packages sold at ' + this.name + ': ' + parseFloat(this.poundsPerDay.toFixed(2))); //can't figure this out
-        this.stringsForDOM.push('Total pounds of beans needed at ' + this.name + ': ' + parseFloat(this.totalBeansPerDay.toFixed(2)));//can't figure this out
+        this.stringsForDOM.push('Total to-go pound packages sold at ' + this.name + ': ' + parseFloat(this.poundsPerDay.toFixed(0))); //can't figure this out
+        this.stringsForDOM.push('Total pounds of beans needed at ' + this.name + ': ' + parseFloat(this.totalBeansPerDay.toFixed(0)));//can't figure this out
     }
   };
 
@@ -143,19 +143,27 @@ makeAllKiosks();
 //reference to the id in html
 var tableEl = document.getElementById('populate-table');
 
-function makeARow() {
+function makeARow(obj) {
   var rowEl = document.createElement('tr');
   //make a cell
   var cellEl = document.createElement('td');
       //give it content
-      cellEl.textContent = allKiosks[0].name;
+      cellEl.textContent = obj.name;
       //append cell to row
       rowEl.appendChild(cellEl);
     //append row to the table
       tableEl.appendChild(rowEl);
-}
-makeARow();
 
+  var cellEl = document.createElement('td');
+      cellEl.textContent = obj.totalBeansPerDay;
+      rowEl.appendChild(cellEl);
+      tableEl.appendChild(rowEl);
+}
+makeARow(allKiosks[0]);
+makeARow(allKiosks[1]);
+makeARow(allKiosks[2]);
+makeARow(allKiosks[3]);
+makeARow(allKiosks[4]);
 
 //function makeAllItemRows() {
 //   for (var item of allItems) {
