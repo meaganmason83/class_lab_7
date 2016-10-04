@@ -6,8 +6,8 @@ var round = function(num, precision) {
 
 var allKiosks = [];
 
-function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
-   this.location = location;
+function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
+   this.name = name;
    this.minCustomer = minCustomer;
    this.maxCustomer = maxCustomer;
    this.averageCups = averageCups;
@@ -28,8 +28,6 @@ function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
    this.employeesPerHour = [];
    this.employeesPerDay = 0;
    this.stringsForDOM = [];
-   this.domLink = null;
-   this.ulEl = null;
    this.stringsForDOM = [];
    allKiosks.push(this);
    }
@@ -80,7 +78,7 @@ function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
     Kiosk.prototype.generateBeansData = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.totalBeansPerHour.push(this.cupsIntoPounds[i] + this.poundsPerHour[i]);
-          this.totalBeansPerDay = (this.totalBeansPerHour[i] / 16);
+          this.totalBeansPerDay += this.totalBeansPerHour[i];
     }
   };
 
@@ -91,24 +89,26 @@ function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
     }
   };
     //add html code? this method isn't functioning correctly
-    Kiosk.prototype.generateDOMData = function() {
-        for (var i = 0; i < this.stringsForDOM.length; i++) {
-          var liEl = document.createElement('li');
-          liEl.textContent = this.stringsForDOM[i];
-          this.ulEl.appendChild(liEl);
-          console.log('ulEl', ulel);
-    }
-        //this.domLink.appendChild(this.ulEl);
-  };
+  //   Kiosk.prototype.generateDOMData = function() {
+  //       for (var i = 0; i < this.stringsForDOM.length; i++) {
+  //         var ulEl = document.createElement('ul');
+  //         var liEl = document.createElement('li');
+  //         liEl.textContent = this.stringsForDOM[i];
+  //         ulEl.appendChild(liEl);
+  //         console.log('ulEl', ulel);
+  //   }
+  //       var domLink = document.createElement('new-table');
+  //       domLink.appendChild(this.ulEl);
+  // };
 
     Kiosk.prototype.generateStringsForDOM = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
-          this.stringsForDOM.push(this.hoursOpen[i] + ': ' + Math.ceil(this.totalBeansPerHour[i], 1) + ' lbs [' + Math.ceil(this.customerPerHour[i], 0) + ' customers, ' + Math.round(this.cupsPerHour[i], 1) + ' cups (' + Math.round(this.cupsIntoPounds[i], 1) + ' lbs), ' + Math.round(this.poundsPerHour[i], 0) + ' lbs to-go]');
+          this.stringsForDOM.push(this.hoursOpen[i] + ': ' + parseFloat(this.totalBeansPerHour[i].toFixed(2)) + ' lbs [' + parseFloat(this.customerPerHour[i].toFixed(0)) + ' customers, ' + parseFloat(this.cupsPerHour[i].toFixed(1)) + ' cups (' + parseFloat(this.cupsIntoPounds[i].toFixed(1)) + ' lbs), ' + parseFloat(this.poundsPerHour[i].toFixed(0)) + ' lbs to-go]');
         }
-        this.stringsForDOM.push('Total customers at ' + this.location + ': ' + this.totalCustomers);
-        this.stringsForDOM.push('Total cups sold at ' + this.location + ': ' + Math.ceil(this.cupsPerDay, 1));
-        this.stringsForDOM.push('Total to-go pound packages sold at ' + this.location + ': ' + Math.ceil(this.poundsPerDay, 1)); //can't figure this out
-        this.stringsForDOM.push('Total pounds of beans needed at ' + this.location + ': ' + (this.poundsPerDay[i] + this.cupsIntoPounds[i]));//can't figure this out
+        this.stringsForDOM.push('Total customers at ' + this.name + ': ' + this.totalCustomers);
+        this.stringsForDOM.push('Total cups sold at ' + this.name + ': ' + parseFloat(this.cupsPerDay.toFixed(2)));
+        this.stringsForDOM.push('Total to-go pound packages sold at ' + this.name + ': ' + parseFloat(this.poundsPerDay.toFixed(2))); //can't figure this out
+        this.stringsForDOM.push('Total pounds of beans needed at ' + this.name + ': ' + parseFloat(this.totalBeansPerDay.toFixed(2)));//can't figure this out
     }
   };
 
@@ -122,7 +122,7 @@ function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
       this.generateCupsPlusLbsData();
       this.generateBeansData();
       this.generateEmployeeData();
-      this.generateDOMData();
+      // this.generateDOMData();
       this.generateStringsForDOM();
   }
 
@@ -132,18 +132,6 @@ function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
  new Kiosk('South Lake Union', 5, 18, 1.3, 0.04);
  new Kiosk('Sea-Tac Airport', 28, 44, 1.1, 0.41);
 
- //something is throwing an error when called
- function createEl() {
-   var store = document.getElementById('store');
-   var ul = document.createElement('ul');
-   for (var i = 0; i < allKiosks.length; i++) {
-     var li = document.createElement('li');
-       li.innerHTML = allKiosks[i].location;
-       ul.appendChild(li);
-     }
-   store.appendChild(ul);
-  }
-
  function makeAllKiosks() {
   for (var i = 0; i < allKiosks.length; i++) {
     allKiosks[i].callMethods();
@@ -151,42 +139,24 @@ function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
 }
 
 makeAllKiosks();
-// createEl();
 
+//reference to the id in html
 var tableEl = document.getElementById('populate-table');
 
-function makeARow(obj) {
+function makeARow() {
   var rowEl = document.createElement('tr');
-
-  //REPEAT THIS PART
-  var locationCell = document.createElement('td');
-    //give content to cell
-  locationCell.textContent = obj.name;
-    //append cell to the row
-  rowEl.appendChild(locationCell);
-
-  // var priceCell = document.createElement('td');
-  // priceCell.textContent = obj.price;
-  // rowEl.appendChild(priceCell);
-  //
-  // var taxEl = document.createElement('td');
-  // taxEl.textContent = obj.tax;
-  // rowEl.appendChild(taxEl);
-
-  var totalEl = document.createElement('td');
-  totalEl.textContent = obj.total;
-  rowEl.appendChild(totalEl);
-
-  //append row to the table
-  tableEl.appendChild(rowEl);
+  //make a cell
+  var cellEl = document.createElement('td');
+      //give it content
+      cellEl.textContent = allKiosks[0].name;
+      //append cell to row
+      rowEl.appendChild(cellEl);
+    //append row to the table
+      tableEl.appendChild(rowEl);
 }
+makeARow();
 
-function makeTable() {
-  for (var Kiosk of allKiosks) {
-    makeARow(Kiosk);
-  }
-}
-makeTable();
+
 //function makeAllItemRows() {
 //   for (var item of allItems) {
 //     makeItemRow(item);
