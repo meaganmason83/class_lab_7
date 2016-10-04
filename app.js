@@ -26,6 +26,7 @@ var allStores = [];
    this.stringsForDOM = [];
    this.domLink = null;
    this.ulEl = null;
+   this.stringsForDOM = [];
 
 
    this.getRandomCustomer = function(min, max) {
@@ -83,6 +84,28 @@ var allStores = [];
           this.employeesPerDay += this.employeesPerHour[i];
       }
     };
+
+    this.generateDOMData = function() {
+        for (var i = 0; i < this.stringsForDOM.length; i++) {
+          var liEl = document.createElement('li');
+          console.log('liEl', liEl);
+          liEl.textContent = this.stringsForDOM[i];
+          this.ulEl.appendChild(liEl);
+        }
+        //this.domLink.appendChild(this.ulEl);
+    };
+
+    this.generateStringsForDOM = function() {
+        for (var i = 0; i < this.hoursOpen.length; i++) {
+          this.stringsForDOM.push(this.hoursOpen[i] + ': ' + Math.ceil(this.totalBeansPerHour[i], 1) + ' lbs [' + Math.ceil(this.customerPerHour[i], 0) + ' customers, ' + Math.round(this.cupsPerHour[i], 1) + ' cups (' + Math.round(this.cupsIntoPounds[i], 1) + ' lbs), ' + Math.round(this.poundsPerHour[i], 0) + ' lbs to-go]');
+        }
+        this.stringsForDOM.push('Total customers at ' + this.location + ': ' + this.totalCustomers);
+        this.stringsForDOM.push('Total cups sold at ' + this.location + ': ' + Math.ceil(this.cupsPerDay, 1));
+        this.stringsForDOM.push('Total to-go pound packages sold at ' + this.location + ': ' + Math.ceil(this.poundsPerDay, 1)); //can't figure this out
+        this.stringsForDOM.push('Total pounds of beans needed at ' + this.location + ': ' + (this.poundsPerDay[i] + this.cupsIntoPounds[i]));//can't figure this out
+
+    };
+
     this.getRandomCustomer();
     this.generateCustomerData();
     this.generateTotalCustomers();
@@ -92,8 +115,8 @@ var allStores = [];
     this.generateCupsPlusLbsData();
     this.generateBeansData();
     this.generateEmployeeData();
-    // this.generateDOMData();
-    // this.generateStringsForDOM();
+    this.generateDOMData();
+    this.generateStringsForDOM();
 
     allStores.push(this);
 }
