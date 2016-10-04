@@ -2,10 +2,6 @@ body {
   background-color: #476555;
   font-family: 'Nunito', sans-serif;
 }
-#backgroundimage {
-  background: url('http://images.8tracks.com/cover/i/009/400/882/Evergreen_Forest_Background_by_StoicLewy-309.jpg?rect=183,0,560,560&q=98&fm=jpg&fit=max') no-repeat 50% 50% fixed;
-  background-size: cover;
-}
 
 img {
   padding-top: 100px;
@@ -20,10 +16,10 @@ img {
   height: auto;
   padding-top: 80px;
   padding-bottom: 20px;
-  opacity: .6;
 }
 
 main {
+  position: center;
   padding-top: 0px;
   padding-bottom: 15px;
   margin-top: 10px;
@@ -42,24 +38,8 @@ h1 {
   font-family: 'Shadows Into Light', cursive;
 }
 
-h3 {
-  text-align: center;
-  color: #741D16;
-  font-size: 15px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-
-p {
-  text-align: center;
-  color: #741D16;
-  font-size: 15px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-
-}
-
 table {
+  position: center;
   margin-top: 1em;
 }
 
