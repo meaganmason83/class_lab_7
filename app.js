@@ -157,8 +157,66 @@ function makeARow(obj) {
       rowEl.appendChild(cellEl2);
 
   var cellEl3 = document.createElement('td');
-      cellEl3.textContent = obj.totalBeansPerHour * obj.hoursOpen[0];
+      cellEl3.textContent = obj.totalBeansPerHour[0];
       rowEl.appendChild(cellEl3);
+
+  var cellEl4 = document.createElement('td');
+      cellEl4.textContent = obj.totalBeansPerHour[1];
+      rowEl.appendChild(cellEl4);
+
+  var cellEl5 = document.createElement('td');
+      cellEl5.textContent = obj.totalBeansPerHour[2];
+      rowEl.appendChild(cellEl5);
+
+  var cellEl6 = document.createElement('td');
+      cellEl6.textContent = obj.totalBeansPerHour[3];
+      rowEl.appendChild(cellEl6);
+
+  var cellEl7 = document.createElement('td');
+      cellEl7.textContent = obj.totalBeansPerHour[4];
+      rowEl.appendChild(cellEl7);
+
+  var cellEl8 = document.createElement('td');
+      cellEl8.textContent = obj.totalBeansPerHour[5];
+      rowEl.appendChild(cellEl8);
+
+  var cellEl9 = document.createElement('td');
+      cellEl9.textContent = obj.totalBeansPerHour[6];
+      rowEl.appendChild(cellEl9);
+
+  var cellEL10 = document.createElement('td');
+      cellEL10.textContent = obj.totalBeansPerHour[7];
+      rowEl.appendChild(cellEL10);
+
+  var cellEl11 = document.createElement('td');
+      cellEl11.textContent = obj.totalBeansPerHour[8];
+      rowEl.appendChild(cellEl11);
+
+  var cellEl12 = document.createElement('td');
+      cellEl12.textContent = obj.totalBeansPerHour[9];
+      rowEl.appendChild(cellEl12);
+
+  var cellEl13 = document.createElement('td');
+      cellEl13.textContent = obj.totalBeansPerHour[10];
+      rowEl.appendChild(cellEl13);
+
+  var cellEl14 = document.createElement('td');
+      cellEl14.textContent = obj.totalBeansPerHour[11];
+      rowEl.appendChild(cellEl14);
+
+  var cellEl15 = document.createElement('td');
+      cellEl15.textContent = obj.totalBeansPerHour[12];
+      rowEl.appendChild(cellEl15);
+
+  var cellEl16 = document.createElement('td');
+      cellEl16.textContent = obj.totalBeansPerHour[13];
+      rowEl.appendChild(cellEl16);
+
+  var cellEl17 = document.createElement('td');
+      cellEl17.textContent = obj.totalBeansPerHour[14];
+      rowEl.appendChild(cellEl17);
+
+
       //append row to the table
       tableEl.appendChild(rowEl);
 }
