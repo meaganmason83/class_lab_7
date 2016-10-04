@@ -77,7 +77,7 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
 
     Kiosk.prototype.generateBeansData = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
-          this.totalBeansPerHour.push(this.cupsIntoPounds[i] + this.poundsPerHour[i]);
+          this.totalBeansPerHour.push(parseFloat(this.cupsIntoPounds[i].toFixed(0)) + parseFloat(this.poundsPerHour[i].toFixed(0)));
           this.totalBeansPerDay += parseFloat(this.totalBeansPerHour[i].toFixed(0));
     }
   };
@@ -146,27 +146,31 @@ var tableEl = document.getElementById('populate-table');
 function makeARow(obj) {
   var rowEl = document.createElement('tr');
   //make a cell
-  var cellEl = document.createElement('td');
+  var cellEl1 = document.createElement('td');
       //give it content
-      cellEl.textContent = obj.name;
+      cellEl1.textContent = obj.name;
       //append cell to row
-      rowEl.appendChild(cellEl);
-    //append row to the table
-      tableEl.appendChild(rowEl);
+      rowEl.appendChild(cellEl1);
 
-  var cellEl = document.createElement('td');
-      cellEl.textContent = obj.totalBeansPerDay;
-      rowEl.appendChild(cellEl);
+  var cellEl2 = document.createElement('td');
+      cellEl2.textContent = obj.totalBeansPerDay;
+      rowEl.appendChild(cellEl2);
+
+  var cellEl3 = document.createElement('td');
+      cellEl3.textContent = obj.totalBeansPerHour * obj.hoursOpen[0];
+      rowEl.appendChild(cellEl3);
+      //append row to the table
       tableEl.appendChild(rowEl);
 }
-makeARow(allKiosks[0]);
-makeARow(allKiosks[1]);
-makeARow(allKiosks[2]);
-makeARow(allKiosks[3]);
-makeARow(allKiosks[4]);
+// makeARow(allKiosks[0]);
+// makeARow(allKiosks[1]);
+// makeARow(allKiosks[2]);
+// makeARow(allKiosks[3]);
+// makeARow(allKiosks[4]);
 
-//function makeAllItemRows() {
-//   for (var item of allItems) {
-//     makeItemRow(item);
-//   }
-// }
+function makeTable(arr) {
+  for (var index in arr) {
+    makeARow(arr[index]);
+  }
+}
+makeTable(allKiosks);
