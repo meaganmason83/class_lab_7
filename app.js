@@ -88,18 +88,6 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
           this.employeesPerDay += this.employeesPerHour[i];
     }
   };
-    //add html code? this method isn't functioning correctly
-  //   Kiosk.prototype.generateDOMData = function() {
-  //       for (var i = 0; i < this.stringsForDOM.length; i++) {
-  //         var ulEl = document.createElement('ul');
-  //         var liEl = document.createElement('li');
-  //         liEl.textContent = this.stringsForDOM[i];
-  //         ulEl.appendChild(liEl);
-  //         console.log('ulEl', ulel);
-  //   }
-  //       var domLink = document.createElement('new-table');
-  //       domLink.appendChild(this.ulEl);
-  // };
 
     Kiosk.prototype.generateStringsForDOM = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
@@ -122,7 +110,6 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
       this.generateCupsPlusLbsData();
       this.generateBeansData();
       this.generateEmployeeData();
-      // this.generateDOMData();
       this.generateStringsForDOM();
   }
 
@@ -141,7 +128,7 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
 makeAllKiosks();
 
 //reference to the id in html
-var tableEl = document.getElementById('populate-table');
+var tableEl = document.getElementById('populate-table1');
 
 function makeARow(obj) {
   var rowEl = document.createElement('tr');
