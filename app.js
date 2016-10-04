@@ -4,9 +4,9 @@ var round = function(num, precision) {
   return parseFloat(num.toFixed(precision));
 };
 
-var allStores = [];
+var allKiosks = [];
 
-function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
+function Kiosk(location, minCustomer, maxCustomer, averageCups, averagePounds) {
    this.location = location;
    this.minCustomer = minCustomer;
    this.maxCustomer = maxCustomer;
@@ -31,67 +31,67 @@ function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
    this.domLink = null;
    this.ulEl = null;
    this.stringsForDOM = [];
-   allStores.push(this);
+   allKiosks.push(this);
    }
 
-   Store.prototype.getRandomCustomer = function() {
+   Kiosk.prototype.getRandomCustomer = function() {
      this.getRandomCustomer = function(min, max) {
      return Math.floor(Math.random() * (max - min + 1) + min);
    };
 
-    Store.prototype.generateCustomerData = function() {
+    Kiosk.prototype.generateCustomerData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.customerPerHour.push(this.getRandomCustomer(this.minCustomer, this.maxCustomer));
         this.customerPerDay += this.customerPerHour[i];
     }
   };
-    Store.prototype.generateTotalCustomers = function() {
+    Kiosk.prototype.generateTotalCustomers = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.totalCustomers += this.customerPerHour[i];
     }
   };
 
-    Store.prototype.generateCupsData = function() {
+    Kiosk.prototype.generateCupsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.cupsPerHour.push(this.customerPerHour[i] * this.averageCups);
         this.cupsPerDay += this.cupsPerHour[i];
     }
   };
 
-    Store.prototype.generateLbsData = function() {
+    Kiosk.prototype.generateLbsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.poundsPerHour.push(this.customerPerHour[i] * this.averagePounds);
         this.poundsPerDay += this.poundsPerHour[i];
     }
   };
 
-    Store.prototype.generateCupsLbsData = function() {
+    Kiosk.prototype.generateCupsLbsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.cupsIntoPounds.push(this.cupsPerHour[i] / 16);
     }
   };
 
-    Store.prototype.generateCupsPlusLbsData = function() {
+    Kiosk.prototype.generateCupsPlusLbsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.cupsPlusPounds.push(this.cupsIntoPounds[i] + this.poundsPerHour[i]);
     }
   };
 
-    Store.prototype.generateBeansData = function() {
+    Kiosk.prototype.generateBeansData = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.totalBeansPerHour.push(this.cupsIntoPounds[i] + this.poundsPerHour[i]);
           this.totalBeansPerDay = (this.totalBeansPerHour[i] / 16);
     }
   };
 
-    Store.prototype.generateEmployeeData = function() {
+    Kiosk.prototype.generateEmployeeData = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.employeesPerHour.push(Math.ceil(this.customerPerHour[i] / 30));
           this.employeesPerDay += this.employeesPerHour[i];
     }
   };
     //add html code? this method isn't functioning correctly
-    Store.prototype.generateDOMData = function() {
+    Kiosk.prototype.generateDOMData = function() {
         for (var i = 0; i < this.stringsForDOM.length; i++) {
           var liEl = document.createElement('li');
           liEl.textContent = this.stringsForDOM[i];
@@ -101,7 +101,7 @@ function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
         //this.domLink.appendChild(this.ulEl);
   };
 
-    Store.prototype.generateStringsForDOM = function() {
+    Kiosk.prototype.generateStringsForDOM = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.stringsForDOM.push(this.hoursOpen[i] + ': ' + Math.ceil(this.totalBeansPerHour[i], 1) + ' lbs [' + Math.ceil(this.customerPerHour[i], 0) + ' customers, ' + Math.round(this.cupsPerHour[i], 1) + ' cups (' + Math.round(this.cupsIntoPounds[i], 1) + ' lbs), ' + Math.round(this.poundsPerHour[i], 0) + ' lbs to-go]');
         }
@@ -112,7 +112,7 @@ function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
     }
   };
 
-    Store.prototype.callMethods = function() {
+    Kiosk.prototype.callMethods = function() {
       this.getRandomCustomer();
       this.generateCustomerData();
       this.generateTotalCustomers();
@@ -126,33 +126,67 @@ function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
       this.generateStringsForDOM();
   }
 
- new Store('Pike Place Market', 14, 35, 1.2, 0.34);
- new Store('Capitol Hill', 12, 28, 3.2, 0.03);
- new Store('Seattle Public Library', 9, 45, 2.6, 0.02);
- new Store('South Lake Union', 5, 18, 1.3, 0.04);
- new Store('Sea-Tac Airport', 28, 44, 1.1, 0.41);
+ new Kiosk('Pike Place Market', 14, 35, 1.2, 0.34);
+ new Kiosk('Capitol Hill', 12, 28, 3.2, 0.03);
+ new Kiosk('Seattle Public Library', 9, 45, 2.6, 0.02);
+ new Kiosk('South Lake Union', 5, 18, 1.3, 0.04);
+ new Kiosk('Sea-Tac Airport', 28, 44, 1.1, 0.41);
 
  //something is throwing an error when called
  function createEl() {
    var store = document.getElementById('store');
    var ul = document.createElement('ul');
-   for (var i = 0; i < allStores.length; i++) {
+   for (var i = 0; i < allKiosks.length; i++) {
      var li = document.createElement('li');
-       li.innerHTML = allStores[i].location;
+       li.innerHTML = allKiosks[i].location;
        ul.appendChild(li);
      }
    store.appendChild(ul);
   }
 
- function makeAllStores() {
-  for (var i = 0; i < allStores.length; i++) {
-    allStores[i].callMethods();
+ function makeAllKiosks() {
+  for (var i = 0; i < allKiosks.length; i++) {
+    allKiosks[i].callMethods();
   }
 }
 
-makeAllStores();
+makeAllKiosks();
 // createEl();
 
+var tableEl = document.getElementById('populate-table');
+
+function makeARow(obj) {
+  var rowEl = document.createElement('tr');
+
+  //REPEAT THIS PART
+  var locationCell = document.createElement('td');
+    //give content to cell
+  locationCell.textContent = obj.name;
+    //append cell to the row
+  rowEl.appendChild(locationCell);
+
+  // var priceCell = document.createElement('td');
+  // priceCell.textContent = obj.price;
+  // rowEl.appendChild(priceCell);
+  //
+  // var taxEl = document.createElement('td');
+  // taxEl.textContent = obj.tax;
+  // rowEl.appendChild(taxEl);
+
+  var totalEl = document.createElement('td');
+  totalEl.textContent = obj.total;
+  rowEl.appendChild(totalEl);
+
+  //append row to the table
+  tableEl.appendChild(rowEl);
+}
+
+function makeTable() {
+  for (var Kiosk of allKiosks) {
+    makeARow(Kiosk);
+  }
+}
+makeTable();
 //function makeAllItemRows() {
 //   for (var item of allItems) {
 //     makeItemRow(item);
