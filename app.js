@@ -1,8 +1,12 @@
 'use strict';
 
+var round = function(num, precision) {
+  return parseFloat(num.toFixed(precision));
+};
+
 var allStores = [];
 
- function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
+function Store(location, minCustomer, maxCustomer, averageCups, averagePounds) {
    this.location = location;
    this.minCustomer = minCustomer;
    this.maxCustomer = maxCustomer;
@@ -27,75 +31,77 @@ var allStores = [];
    this.domLink = null;
    this.ulEl = null;
    this.stringsForDOM = [];
+   allStores.push(this);
+   }
 
+   Store.prototype.getRandomCustomer = function() {
+     this.getRandomCustomer = function(min, max) {
+     return Math.floor(Math.random() * (max - min + 1) + min);
+   };
 
-   this.getRandomCustomer = function(min, max) {
-     return Math.floor(Math.random() * (max - min) + min);
-};
-
-    this.generateCustomerData = function() {
+    Store.prototype.generateCustomerData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.customerPerHour.push(this.getRandomCustomer(this.minCustomer, this.maxCustomer));
         this.customerPerDay += this.customerPerHour[i];
     }
   };
-    this.generateTotalCustomers = function() {
+    Store.prototype.generateTotalCustomers = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.totalCustomers += this.customerPerHour[i];
     }
   };
 
-    this.generateCupsData = function() {
+    Store.prototype.generateCupsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.cupsPerHour.push(this.customerPerHour[i] * this.averageCups);
         this.cupsPerDay += this.cupsPerHour[i];
     }
   };
 
-    this.generateLbsData = function() {
+    Store.prototype.generateLbsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.poundsPerHour.push(this.customerPerHour[i] * this.averagePounds);
         this.poundsPerDay += this.poundsPerHour[i];
     }
   };
 
-    this.generateCupsLbsData = function() {
+    Store.prototype.generateCupsLbsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.cupsIntoPounds.push(this.cupsPerHour[i] / 16);
     }
   };
 
-  this.generateCupsPlusLbsData = function() {
+    Store.prototype.generateCupsPlusLbsData = function() {
       for (var i = 0; i < this.hoursOpen.length; i++) {
         this.cupsPlusPounds.push(this.cupsIntoPounds[i] + this.poundsPerHour[i]);
-      }
-    };
+    }
+  };
 
-    this.generateBeansData = function() {
+    Store.prototype.generateBeansData = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.totalBeansPerHour.push(this.cupsIntoPounds[i] + this.poundsPerHour[i]);
           this.totalBeansPerDay = (this.totalBeansPerHour[i] / 16);
-      }
-    };
+    }
+  };
 
-    this.generateEmployeeData = function() {
+    Store.prototype.generateEmployeeData = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.employeesPerHour.push(Math.ceil(this.customerPerHour[i] / 30));
           this.employeesPerDay += this.employeesPerHour[i];
-      }
-    };
-
-    this.generateDOMData = function() {
+    }
+  };
+    //add html code? this method isn't functioning correctly
+    Store.prototype.generateDOMData = function() {
         for (var i = 0; i < this.stringsForDOM.length; i++) {
           var liEl = document.createElement('li');
-          console.log('liEl', liEl);
           liEl.textContent = this.stringsForDOM[i];
           this.ulEl.appendChild(liEl);
-        }
+          console.log('ulEl', ulel);
+    }
         //this.domLink.appendChild(this.ulEl);
-    };
+  };
 
-    this.generateStringsForDOM = function() {
+    Store.prototype.generateStringsForDOM = function() {
         for (var i = 0; i < this.hoursOpen.length; i++) {
           this.stringsForDOM.push(this.hoursOpen[i] + ': ' + Math.ceil(this.totalBeansPerHour[i], 1) + ' lbs [' + Math.ceil(this.customerPerHour[i], 0) + ' customers, ' + Math.round(this.cupsPerHour[i], 1) + ' cups (' + Math.round(this.cupsIntoPounds[i], 1) + ' lbs), ' + Math.round(this.poundsPerHour[i], 0) + ' lbs to-go]');
         }
@@ -103,25 +109,22 @@ var allStores = [];
         this.stringsForDOM.push('Total cups sold at ' + this.location + ': ' + Math.ceil(this.cupsPerDay, 1));
         this.stringsForDOM.push('Total to-go pound packages sold at ' + this.location + ': ' + Math.ceil(this.poundsPerDay, 1)); //can't figure this out
         this.stringsForDOM.push('Total pounds of beans needed at ' + this.location + ': ' + (this.poundsPerDay[i] + this.cupsIntoPounds[i]));//can't figure this out
+    }
+  };
 
-    };
-
-    this.getRandomCustomer();
-    this.generateCustomerData();
-    this.generateTotalCustomers();
-    this.generateCupsData();
-    this.generateLbsData();
-    this.generateCupsLbsData();
-    this.generateCupsPlusLbsData();
-    this.generateBeansData();
-    this.generateEmployeeData();
-    this.generateDOMData();
-    this.generateStringsForDOM();
-
-    allStores.push(this);
-}
-
-
+    Store.prototype.callMethods = function() {
+      this.getRandomCustomer();
+      this.generateCustomerData();
+      this.generateTotalCustomers();
+      this.generateCupsData();
+      this.generateLbsData();
+      this.generateCupsLbsData();
+      this.generateCupsPlusLbsData();
+      this.generateBeansData();
+      this.generateEmployeeData();
+      this.generateDOMData();
+      this.generateStringsForDOM();
+  }
 
  new Store('Pike Place Market', 14, 35, 1.2, 0.34);
  new Store('Capitol Hill', 12, 28, 3.2, 0.03);
@@ -129,9 +132,29 @@ var allStores = [];
  new Store('South Lake Union', 5, 18, 1.3, 0.04);
  new Store('Sea-Tac Airport', 28, 44, 1.1, 0.41);
 
-//  function makeAllStores() {
-//    for (var i = 0; i < allStores.length; i++) {
-//      allStores[i].doAllMethods();
-//    }
-// };
-// makeAllStores();
+ //something is throwing an error when called
+ function createEl() {
+   var store = document.getElementById('store');
+   var ul = document.createElement('ul');
+   for (var i = 0; i < allStores.length; i++) {
+     var li = document.createElement('li');
+       li.innerHTML = allStores[i].location;
+       ul.appendChild(li);
+     }
+   store.appendChild(ul);
+  }
+
+ function makeAllStores() {
+  for (var i = 0; i < allStores.length; i++) {
+    allStores[i].callMethods();
+  }
+}
+
+makeAllStores();
+// createEl();
+
+//function makeAllItemRows() {
+//   for (var item of allItems) {
+//     makeItemRow(item);
+//   }
+// }
