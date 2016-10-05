@@ -2,7 +2,7 @@
 
 var allKiosks = [];
 var grandTotals = {
-  //properties
+  location: 0
 };
 
 function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
@@ -99,10 +99,13 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
     }
   };
 
-    Kiosk.prototype.generateGrandTotals = function() {
-      grandTotals.name += this.name;
-
-    }
+    Kiosk.prototype.generateLocationTotals = function() {
+        for (var i = 0; i < allKiosks.length; i++) {
+          grandTotals.location += allKiosks.totalBeansPerDay;
+          console.log(allKiosks.totalBeansPerDay);
+          console.log(grandTotals.location);
+        }
+    };
 
     Kiosk.prototype.callMethods = function() {
       this.getRandomCustomer();
@@ -115,6 +118,7 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
       this.generateBeansData();
       this.generateEmployeeData();
       this.generateStringsForDOM();
+      this.generateLocationTotals();
   }
 
  new Kiosk('Pike Place Market', 14, 35, 1.2, 0.34);
