@@ -1,10 +1,9 @@
 'use strict';
 
-var round = function(num, precision) {
-  return parseFloat(num.toFixed(precision));
-};
-
 var allKiosks = [];
+var grandTotals = {
+  //properties
+};
 
 function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
    this.name = name;
@@ -99,6 +98,11 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
         this.stringsForDOM.push('Total pounds of beans needed at ' + this.name + ': ' + parseFloat(this.totalBeansPerDay.toFixed(0)));
     }
   };
+
+    Kiosk.prototype.generateGrandTotals = function() {
+      grandTotals.name += this.name;
+
+    }
 
     Kiosk.prototype.callMethods = function() {
       this.getRandomCustomer();
@@ -206,12 +210,12 @@ function makeARow(obj) {
       //append row to the table
       tableEl.appendChild(rowEl);
 
-  var rowElTotals = document.createElement('tr');
-
-  var cellElTotals = document.createElement('td');
-      cellElTotals.textContent = 'Totals';
-      rowElTotals.appendChild(cellElTotals);
-      tableEl.appendChild(rowElTotals);
+  // var rowElTotals = document.createElement('tr');
+  //
+  // var cellElTotals = document.createElement('td');
+  //     cellElTotals.textContent = 'Totals';
+  //     rowElTotals.appendChild(cellElTotals);
+  //     tableEl.appendChild(rowElTotals);
 }
 
 function makeTable(arr) {
@@ -296,12 +300,12 @@ function makeARow2(obj) {
 
       tableEl2.appendChild(rowEl);
 
-  var rowElTotals = document.createElement('tr');
-
-  var cellElTotals = document.createElement('td');
-      cellElTotals.textContent = 'Totals';
-      rowElTotals.appendChild(cellElTotals);
-      tableEl2.appendChild(rowElTotals);
+  // var rowElTotals = document.createElement('tr');
+  //
+  // var cellElTotals = document.createElement('td');
+  //     cellElTotals.textContent = 'Totals';
+  //     rowElTotals.appendChild(cellElTotals);
+  //     tableEl2.appendChild(rowElTotals);
 }
 
 function makeTable2(arr) {
