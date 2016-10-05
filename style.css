@@ -31,7 +31,7 @@ main {
 h1 {
   text-align: center;
   color: #741D16;
-  font-size: 50px;
+  font-size: 35px;
   padding-top: 0px;
   margin-top: 50px;
   margin-bottom: 30px;
@@ -39,12 +39,17 @@ h1 {
 }
 
 table {
-  position: center;
+  font-size: 12px;
+  width: 200;
+  text-align: center;
+  border: 1px solid;
+  border
   margin-top: 1em;
 }
 
 th, td {
   padding:0.3em;
+  border:1px solid;
 }
 
 ul {
