@@ -95,8 +95,8 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
         }
         this.stringsForDOM.push('Total customers at ' + this.name + ': ' + this.totalCustomers);
         this.stringsForDOM.push('Total cups sold at ' + this.name + ': ' + parseFloat(this.cupsPerDay.toFixed(2)));
-        this.stringsForDOM.push('Total to-go pound packages sold at ' + this.name + ': ' + parseFloat(this.poundsPerDay.toFixed(0))); //can't figure this out
-        this.stringsForDOM.push('Total pounds of beans needed at ' + this.name + ': ' + parseFloat(this.totalBeansPerDay.toFixed(0)));//can't figure this out
+        this.stringsForDOM.push('Total to-go pound packages sold at ' + this.name + ': ' + parseFloat(this.poundsPerDay.toFixed(0)));
+        this.stringsForDOM.push('Total pounds of beans needed at ' + this.name + ': ' + parseFloat(this.totalBeansPerDay.toFixed(0)));
     }
   };
 
@@ -203,9 +203,15 @@ function makeARow(obj) {
       cellEl17.textContent = obj.totalBeansPerHour[14];
       rowEl.appendChild(cellEl17);
 
-
       //append row to the table
       tableEl.appendChild(rowEl);
+
+  var rowElTotals = document.createElement('tr');
+
+  var cellElTotals = document.createElement('td');
+      cellElTotals.textContent = 'Totals';
+      rowElTotals.appendChild(cellElTotals);
+      tableEl.appendChild(rowElTotals);
 }
 
 function makeTable(arr) {
@@ -219,11 +225,9 @@ var tableEl2 = document.getElementById('populate-table2');
 
 function makeARow2(obj) {
   var rowEl = document.createElement('tr');
-  //make a cell
+
   var cellEl1 = document.createElement('td');
-      //give it content
       cellEl1.textContent = obj.name;
-      //append cell to row
       rowEl.appendChild(cellEl1);
 
   var cellEl2 = document.createElement('td');
@@ -290,8 +294,14 @@ function makeARow2(obj) {
       cellEl17.textContent = obj.employeesPerHour[14];
       rowEl.appendChild(cellEl17);
 
-      //append row to the table
       tableEl2.appendChild(rowEl);
+
+  var rowElTotals = document.createElement('tr');
+
+  var cellElTotals = document.createElement('td');
+      cellElTotals.textContent = 'Totals';
+      rowElTotals.appendChild(cellElTotals);
+      tableEl2.appendChild(rowElTotals);
 }
 
 function makeTable2(arr) {
