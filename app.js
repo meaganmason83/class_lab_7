@@ -181,23 +181,25 @@ var tableEl2 = document.getElementById('populate-table2');
 
 function makeARow2(obj) {
   var rowEl = document.createElement('tr');
-
+  //make a cell
   var cellElName = document.createElement('td');
+      //give it content
       cellElName.textContent = obj.name;
+      //append cell to row
       rowEl.appendChild(cellElName);
 
-  var cellElBeans = document.createElement('td');
-      cellElBeans.textContent = obj.totalBeansPerDay;
-      rowEl.appendChild(cellElBeans);
+  var cellElEmp = document.createElement('td');
+      cellElEmp.textContent = obj.employeesPerDay;
+      rowEl.appendChild(cellElEmp);
 
-  //make this a grandtotal method instead of totalBeansPerHour
-  for (var i = 0; i < obj.hoursOpen.length; i++) {
-    var cellElHours = document.createElement('td');
-        cellElHours.textContent = obj.totalBeansPerHour[i]
+    //make this a grandtotal method instead of totalBeansPerHour
+    for (var i = 0; i < obj.hoursOpen.length; i++) {
+      var cellElHours = document.createElement('td');
+        cellElHours.textContent = obj.employeesPerHour[i]
         rowEl.appendChild(cellElHours);
         tableEl2.appendChild(rowEl);
-      }
-
+    }
+      //append row to the table
       tableEl2.appendChild(rowEl);
 
   // var rowElTotals = document.createElement('tr');
