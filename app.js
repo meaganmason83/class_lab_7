@@ -28,6 +28,7 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
    this.employeesPerDay = 0;
    this.stringsForDOM = [];
    this.stringsForDOM = [];
+   this.grandTotals = 0; //new property for grandTotals method
    allKiosks.push(this);
    }
 
@@ -99,13 +100,13 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
     }
   };
 
-    Kiosk.prototype.generateLocationTotals = function() {
-        for (var i = 0; i < allKiosks.length; i++) {
-          grandTotals.location += allKiosks.totalBeansPerDay;
-          console.log(allKiosks.totalBeansPerDay);
-          console.log(grandTotals.location);
-        }
-    };
+    // Kiosk.prototype.generateLocationTotals = function() {
+    //     for (var i = 0; i < allKiosks.length; i++) {
+    //       this.grandTotals += allKiosks.totalBeansPerHour[i];
+    //       console.log(allKiosks.totalBeansPerHour);
+    //       console.log(grandTotals);
+    //     }
+    // };
 
     Kiosk.prototype.callMethods = function() {
       this.getRandomCustomer();
@@ -118,7 +119,7 @@ function Kiosk(name, minCustomer, maxCustomer, averageCups, averagePounds) {
       this.generateBeansData();
       this.generateEmployeeData();
       this.generateStringsForDOM();
-      this.generateLocationTotals();
+      // this.generateLocationTotals();
   }
 
  new Kiosk('Pike Place Market', 14, 35, 1.2, 0.34);
@@ -141,76 +142,23 @@ var tableEl = document.getElementById('populate-table1');
 function makeARow(obj) {
   var rowEl = document.createElement('tr');
   //make a cell
-  var cellEl1 = document.createElement('td');
+  var cellElName = document.createElement('td');
       //give it content
-      cellEl1.textContent = obj.name;
+      cellElName.textContent = obj.name;
       //append cell to row
-      rowEl.appendChild(cellEl1);
+      rowEl.appendChild(cellElName);
 
-  var cellEl2 = document.createElement('td');
-      cellEl2.textContent = obj.totalBeansPerDay;
-      rowEl.appendChild(cellEl2);
+  var cellElBeans = document.createElement('td');
+      cellElBeans.textContent = obj.totalBeansPerDay;
+      rowEl.appendChild(cellElBeans);
 
-  var cellEl3 = document.createElement('td');
-      cellEl3.textContent = obj.totalBeansPerHour[0];
-      rowEl.appendChild(cellEl3);
-
-  var cellEl4 = document.createElement('td');
-      cellEl4.textContent = obj.totalBeansPerHour[1];
-      rowEl.appendChild(cellEl4);
-
-  var cellEl5 = document.createElement('td');
-      cellEl5.textContent = obj.totalBeansPerHour[2];
-      rowEl.appendChild(cellEl5);
-
-  var cellEl6 = document.createElement('td');
-      cellEl6.textContent = obj.totalBeansPerHour[3];
-      rowEl.appendChild(cellEl6);
-
-  var cellEl7 = document.createElement('td');
-      cellEl7.textContent = obj.totalBeansPerHour[4];
-      rowEl.appendChild(cellEl7);
-
-  var cellEl8 = document.createElement('td');
-      cellEl8.textContent = obj.totalBeansPerHour[5];
-      rowEl.appendChild(cellEl8);
-
-  var cellEl9 = document.createElement('td');
-      cellEl9.textContent = obj.totalBeansPerHour[6];
-      rowEl.appendChild(cellEl9);
-
-  var cellEL10 = document.createElement('td');
-      cellEL10.textContent = obj.totalBeansPerHour[7];
-      rowEl.appendChild(cellEL10);
-
-  var cellEl11 = document.createElement('td');
-      cellEl11.textContent = obj.totalBeansPerHour[8];
-      rowEl.appendChild(cellEl11);
-
-  var cellEl12 = document.createElement('td');
-      cellEl12.textContent = obj.totalBeansPerHour[9];
-      rowEl.appendChild(cellEl12);
-
-  var cellEl13 = document.createElement('td');
-      cellEl13.textContent = obj.totalBeansPerHour[10];
-      rowEl.appendChild(cellEl13);
-
-  var cellEl14 = document.createElement('td');
-      cellEl14.textContent = obj.totalBeansPerHour[11];
-      rowEl.appendChild(cellEl14);
-
-  var cellEl15 = document.createElement('td');
-      cellEl15.textContent = obj.totalBeansPerHour[12];
-      rowEl.appendChild(cellEl15);
-
-  var cellEl16 = document.createElement('td');
-      cellEl16.textContent = obj.totalBeansPerHour[13];
-      rowEl.appendChild(cellEl16);
-
-  var cellEl17 = document.createElement('td');
-      cellEl17.textContent = obj.totalBeansPerHour[14];
-      rowEl.appendChild(cellEl17);
-
+    //make this a grandtotal method instead of totalBeansPerHour
+    for (var i = 0; i < obj.hoursOpen.length; i++) {
+      var cellElHours = document.createElement('td');
+        cellElHours.textContent = obj.totalBeansPerHour[i]
+        rowEl.appendChild(cellElHours);
+        tableEl.appendChild(rowEl);
+    }
       //append row to the table
       tableEl.appendChild(rowEl);
 
@@ -234,73 +182,21 @@ var tableEl2 = document.getElementById('populate-table2');
 function makeARow2(obj) {
   var rowEl = document.createElement('tr');
 
-  var cellEl1 = document.createElement('td');
-      cellEl1.textContent = obj.name;
-      rowEl.appendChild(cellEl1);
+  var cellElName = document.createElement('td');
+      cellElName.textContent = obj.name;
+      rowEl.appendChild(cellElName);
 
-  var cellEl2 = document.createElement('td');
-      cellEl2.textContent = obj.employeesPerDay;
-      rowEl.appendChild(cellEl2);
+  var cellElBeans = document.createElement('td');
+      cellElBeans.textContent = obj.totalBeansPerDay;
+      rowEl.appendChild(cellElBeans);
 
-  var cellEl3 = document.createElement('td');
-      cellEl3.textContent = obj.employeesPerHour[0];
-      rowEl.appendChild(cellEl3);
-
-  var cellEl4 = document.createElement('td');
-      cellEl4.textContent = obj.employeesPerHour[1];
-      rowEl.appendChild(cellEl4);
-
-  var cellEl5 = document.createElement('td');
-      cellEl5.textContent = obj.employeesPerHour[2];
-      rowEl.appendChild(cellEl5);
-
-  var cellEl6 = document.createElement('td');
-      cellEl6.textContent = obj.employeesPerHour[3];
-      rowEl.appendChild(cellEl6);
-
-  var cellEl7 = document.createElement('td');
-      cellEl7.textContent = obj.employeesPerHour[4];
-      rowEl.appendChild(cellEl7);
-
-  var cellEl8 = document.createElement('td');
-      cellEl8.textContent = obj.employeesPerHour[5];
-      rowEl.appendChild(cellEl8);
-
-  var cellEl9 = document.createElement('td');
-      cellEl9.textContent = obj.employeesPerHour[6];
-      rowEl.appendChild(cellEl9);
-
-  var cellEL10 = document.createElement('td');
-      cellEL10.textContent = obj.employeesPerHour[7];
-      rowEl.appendChild(cellEL10);
-
-  var cellEl11 = document.createElement('td');
-      cellEl11.textContent = obj.employeesPerHour[8];
-      rowEl.appendChild(cellEl11);
-
-  var cellEl12 = document.createElement('td');
-      cellEl12.textContent = obj.employeesPerHour[9];
-      rowEl.appendChild(cellEl12);
-
-  var cellEl13 = document.createElement('td');
-      cellEl13.textContent = obj.employeesPerHour[10];
-      rowEl.appendChild(cellEl13);
-
-  var cellEl14 = document.createElement('td');
-      cellEl14.textContent = obj.employeesPerHour[11];
-      rowEl.appendChild(cellEl14);
-
-  var cellEl15 = document.createElement('td');
-      cellEl15.textContent = obj.employeesPerHour[12];
-      rowEl.appendChild(cellEl15);
-
-  var cellEl16 = document.createElement('td');
-      cellEl16.textContent = obj.employeesPerHour[13];
-      rowEl.appendChild(cellEl16);
-
-  var cellEl17 = document.createElement('td');
-      cellEl17.textContent = obj.employeesPerHour[14];
-      rowEl.appendChild(cellEl17);
+  //make this a grandtotal method instead of totalBeansPerHour
+  for (var i = 0; i < obj.hoursOpen.length; i++) {
+    var cellElHours = document.createElement('td');
+        cellElHours.textContent = obj.totalBeansPerHour[i]
+        rowEl.appendChild(cellElHours);
+        tableEl2.appendChild(rowEl);
+      }
 
       tableEl2.appendChild(rowEl);
 
